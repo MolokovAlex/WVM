@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+Просмотр базы профиля мощности :: {{ block.super }}
+{% endblock %}
+
+
+
+
+
+
+
+{% block content %}
+{% include 'inc/_filterbar_DBPP.html' %}
+<canvas id="chart"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+<script>
+window.onload = function () {
+//   var data = [48, -63, 81, 11, 70];
+  var data = [
+    {% for item in data %}
+      {{ item.value }},
+    {% endfor %}
+  ]
+//   var labels = ['January', 'February', 'March', 'April', 'May'];
+var labels = [
+    {% for item in data %}
+      "{{ item.date }}",
+    {% endfor %}
+  ]
+
+  var config = {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'P+',
+          backgroundColor: 'black',
+          borderColor: 'lightblue',
+          data: data,
+          fill: false
+        }
+      ]
+    },
+    options: {
+      responsive: true
+    }
+  };
+
+  console.log(data);
+  console.log(labels);
+
+  var ctx = document.getElementById('chart').getContext('2d');
+  window.myLine = new Chart(ctx, config);
+};
+</script>
+
+<div class="card-body">
+    <div class="table-responsive">
+        <!-- Table -->
+        <table class="table table-bordered border-primary table-striped table-hover">
+            <thead class="table-dark">
+                <td>Наименование счетчика</td>
+                <td>Штамп времени</td>
+                <td>Байт статуса</td>
+                <td>Период интегрирования</td>
+                <td>P+</td>
+                <td>P-</td>
+                <td>Q+</td>
+                <td>Q-</td>
+            </thead>
+            {% for item in dbpp %}
+            <tr>
+                <!-- <td rowspan="2" style="background-color:green;">1</td> -->
+                <td>{{ item.counter.name_counter_full }}</td>
+                <td>{{ item.datetime }}</td>
+                <td>{{ item.write_status_byte }} </td>
+                <td>{{ item.period_int }}</td>
+                <td>{{ item.P_plus }}</td>
+                <td>{{ item.P_minus }}</td>
+                <td>{{ item.Q_plus }}</td>
+                <td>{{ item.Q_minus }}</td>
+
+
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+
+
+
+
+
+{{ block.super }}
+{% endblock %}

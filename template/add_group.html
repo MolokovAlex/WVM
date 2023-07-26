@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+
+{% block title %} 
+Добавление Группы :: {{ block.super }} 
+
+{% endblock %}
+
+{% block sidebar %} 
+{{ block.super }}
+{% endblock %}
+
+
+{% block content %} 
+<h1> Добавление Группы </h1>
+<div class="collapse-divider"></div>
+<form action="{% url 'add_group' %}" method="post">
+    {% csrf_token %}
+    
+    {% comment %}
+    {{ form.as_p }}
+    {% endcomment %}
+
+    <div class="form-group">
+        <label for="{{ form.name_group_full.id_for_label }}">
+            Наименование группы
+        </label>
+        {{ form.name_group_full }}
+        <div class="invalid-feedback">
+            {{ form.name_group_full.errors }}
+        </div>
+    </div>
+
+
+
+
+
+    <button type="submit" class="btn btn-primary">Добавить группу</button>
+</form>
+
+
+{% endblock %}

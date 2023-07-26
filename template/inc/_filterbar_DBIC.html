@@ -1,0 +1,107 @@
+<!-- filterbar -->
+{% load static %}
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('#daterange').daterangepicker(
+      {
+        minDate: '01/01/2023',
+        maxDate: '12/31/2023',
+        showDropdowns: true,
+        opens: 'left',
+        locale: 'ru'
+      }
+    );
+  });
+</script>
+
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+  <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> -->
+  <!-- filterbar Navbar -->
+  <ul class="navbar-nav ml-auto">
+
+
+    <!-- <div class="well"> -->
+    <!-- <form class="form-horizontal"> -->
+    <form action="{% url 'view_dbic' %}" method="post">
+      {% csrf_token %}
+      <div class="row g-3">
+
+        <div class="col">
+          <div class="form-group">
+            <label class="form-check-label" for="{{ fcnc.check_nameCounter.id_for_label }}">Выбор счетчика</label>
+            {{ fcnc.check_nameCounter }}
+          </div>
+        </div>
+
+        <div class="col">
+          <fieldset>
+            <div class="control-group">
+              <label class="control-label" for="reservation">Date range:</label>
+              <div class="controls">
+                <div class="input-prepend">
+                  <span class="add-on">
+                    <i class="icon-calendar"></i>
+                  </span>
+                  <input type="text" name="reservation" id="daterange" />
+
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+
+
+
+
+
+        <div class="col">
+          <div class="form-check">
+            <label class="form-check-label" for="{{ form.check_current.id_for_label }}">Ток</label>
+            {{ form.check_current }}
+          </div>
+          <div class="form-check">
+            <label class="form-check-label" for="{{ form.check_powerP.id_for_label }}">Мощность Р</label>
+            {{ form.check_powerP }}
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-check">
+            <label class="form-check-label" for="{{ form.check_powerS.id_for_label }}">Мощность S</label>
+            {{ form.check_powerS }}
+          </div>
+          <div class="form-check">
+            <label class="form-check-label" for="{{ form.check_powerQ.id_for_label }}">Мощность Q</label>
+            {{ form.check_powerQ }}
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-check">
+            <label class="form-check-label" for="{{ form.check_cos.id_for_label }}">Cos</label>
+            {{ form.check_cos }}
+          </div>
+          <div class="form-check">
+            <label class="form-check-label" for="{{ form.check_tarif.id_for_label }}">Тариф</label>
+            {{ form.check_tarif }}
+          </div>
+        </div>
+
+        <!-- <div class="col">
+          <button type="submit" class="btn btn-sm btn-outline-secondary">Обновить</button>
+        </div> -->
+
+        <div class="col">
+          <button type="submit" class="btn btn-sm btn-outline-secondary" value="Обновить" name="_reload">Обновить</button>
+        </div>
+
+        <div class="col">
+          <button type="submit" class="btn btn-sm btn-outline-secondary" value="Экспорт в Excel" name="_inExcel">Экспорт в Excel</button>
+        </div>
+
+      </div>
+    </form>
+
+
+  </ul>
+</nav>
+<!-- End of filterbar -->

@@ -1,0 +1,85 @@
+{% load static %}
+<!-- filterbar -->
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('#daterange').daterangepicker(
+      {
+        minDate: '01/01/2023',
+        maxDate: '12/31/2023',
+        showDropdowns: true,
+        opens: 'left',
+        locale: 'ru'
+      }
+    );
+  });
+</script>
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+  <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> -->
+  <!-- filterbar Navbar -->
+  <ul class="navbar-nav ml-auto">
+
+
+    <!-- <div class="well"> -->
+    <!-- <form class="form-horizontal"> -->
+    <form action="{% url 'view_dbpp' %}" method="post">
+      {% csrf_token %}
+      <div class="row g-3">
+
+        <div class="col">
+          <fieldset>
+            <div class="control-group">
+              <label class="control-label" for="reservation">Date range:</label>
+              <div class="controls">
+                <div class="input-prepend">
+                  <span class="add-on">
+                    <i class="icon-calendar"></i>
+                  </span>
+                  <input type="text" name="reservation" id="daterange" />
+
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+
+
+        {% comment %}
+        <form action="{% url 'view_dbpp' %}" method="post">
+          {% csrf_token %}
+
+          <span class="navbar-text">
+            Интервал от:
+          </span>
+          <!-- <input type="date" name="begin" placeholder="dd-mm-yyyy" value="" min="2022-01-01" max="2030-12-31"> -->
+          {{ form.startDate }}
+          <span class="navbar-text">
+            до:
+          </span>
+          <!-- <input type="date" name="end" placeholder="dd-mm-yyyy" value="" min="2022-01-01" max="2030-12-31"> -->
+          {{ form.endDate }}
+          {% endcomment %}
+
+          <div class="col">
+            <button type="submit" class="btn btn-sm btn-outline-secondary" value="" name="_period">Период
+              интегрирования</button>
+          </div>
+
+
+          <!-- <div class="topbar-divider d-none d-sm-block"></div> -->
+          <!-- <button class="btn btn-sm btn-outline-secondary" type="button">Период интегрирования</button> -->
+
+          <div class="col">
+            <button type="submit" class="btn btn-sm btn-outline-secondary" value="Обновить"
+              name="_reload">Обновить</button>
+          </div>
+
+          <div class="col">
+            <button type="submit" class="btn btn-sm btn-outline-secondary" value="Экспорт в Excel"
+              name="_inExcel">Экспорт в Excel</button>
+          </div>
+      </div>
+    </form>
+  </ul>
+</nav>
+<!-- End of filterbar -->

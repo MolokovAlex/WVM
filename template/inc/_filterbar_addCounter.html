@@ -1,0 +1,104 @@
+{% load static %}
+<!-- filterbar -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#daterange').daterangepicker(
+            {
+                minDate: '01/01/2023',
+                maxDate: '12/31/2023',
+                showDropdowns: true,
+                opens: 'left',
+                locale: 'ru'
+            }
+        );
+    });
+</script>
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> -->
+    <!-- filterbar Navbar -->
+    <ul class="navbar-nav ml-auto">
+        <div class="row g-3">
+            <div class="col">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <form action="{% url 'add_counter' %}" method="post">
+                            {% csrf_token %}
+                            <!-- Table -->
+                            <table class="table table-bordered border-primary">
+                                <thead class="table-dark">
+                                    <td> </td>
+                                    <td>Наименование счетчика</td>
+                                    <td>Наименование счетчика</td>
+                                    <td>Схема</td>
+                                    <td>Группа</td>
+                                    <td>Сетевой адрес</td>
+                                    <td>Зав.номер</td>
+                                    <td>Дата изг.</td>
+                                    <td>Класс точности по реакт</td>
+                                    <td>Класс точности по акт</td>
+                                    <td>Номинальное напряжение</td>
+                                    <td>Номинальный ток</td>
+                                    <td>Ku</td>
+                                    <td>Ki</td>
+                                    <td>Постоянная счетчика</td>
+                                    <td>Время счетчика</td>
+                                </thead>
+                                <tbody>
+
+                                    <tr>
+                                        <!-- <td rowspan="2" style="background-color:green;">1</td> -->
+                                        <td>
+                                            <a class="icon-link" href="#">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-plus-circle-fill"
+                                                    viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                                                </svg>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            {{ form.name_counter_full }}
+                                            <div class="invalid-feedback">
+                                                {{ form.name_counter_full.errors }}
+                                            </div>
+                                        </td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                        <td>4</td>
+                                        <td>5</td>
+                                        <td>6</td>
+                                        <td>7</td>
+                                        <td>8</td>
+                                        <td>9</td>
+                                        <td>10</td>
+                                        <td>11</td>
+                                        <td>12</td>
+                                        <td>13</td>
+                                        <td>14</td>
+                                        <td>15</td>
+                                        <!-- <td>8</td> -->
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="col">
+                <button type="submit" class="btn btn-sm btn-outline-secondary" value="Добавить в БД"
+                    name="_addCounter">Добавить в БД</button>
+            </div>
+
+
+        </div>
+
+
+    </ul>
+</nav>
+<!-- End of filterbar -->

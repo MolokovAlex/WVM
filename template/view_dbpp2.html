@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+Просмотр базы профиля мощности :: {{ block.super }}
+{% endblock %}
+
+
+
+
+
+
+
+{% block content %}
+{% include 'inc/_filterbar_DBPP.html' %}
+<!-- Content Row - -->
+<!-- <div class="panel panel-default"> -->
+<!-- Default panel contents -->
+<!-- <div class="panel-heading">Panel heading</div> -->
+<!-- <div class="panel-body"> -->
+<!-- <p>...</p> -->
+<!-- </div> -->
+
+<!-- <object data="{% static "graph.svg" %}" type="image/svg+xml"></object> -->
+
+
+<svg class="chart" width="420" height="150" aria-labelledby="title desc" role="img">
+    <title id="title">A bar chart showing information</title>
+    <desc id="desc">4 apples; 8 bananas; 15 kiwis; 16 oranges; 23 lemons</desc>
+    <g class="bar">
+        <rect width="40" height="19"></rect>
+        <text x="45" y="9.5" dy=".35em">4 apples</text>
+    </g>
+    <g class="bar">
+        <rect width="80" height="19" y="20"></rect>
+        <text x="85" y="28" dy=".35em">8 bananas</text>
+    </g>
+    <g class="bar">
+        <rect width="150" height="19" y="40"></rect>
+        <text x="150" y="48" dy=".35em">15 kiwis</text>
+    </g>
+    <g class="bar">
+        <rect width="160" height="19" y="60"></rect>
+        <text x="161" y="68" dy=".35em">16 oranges</text>
+    </g>
+    <g class="bar">
+        <rect width="230" height="19" y="80"></rect>
+        <text x="235" y="88" dy=".35em">23 lemons</text>
+    </g>
+</svg>
+
+
+
+<div class="card-body">
+    <div class="table-responsive">
+        <!-- Table -->
+        <table class="table table-bordered border-primary">
+            <thead class="table-dark">
+                <td>Наименование счетчика</td>
+                <td>Штамп времени</td>
+                <td>Байт статуса</td>
+                <td>Период интегрирования</td>
+                <td>P+</td>
+                <td>P-</td>
+                <td>Q+</td>
+                <td>Q-</td>
+            </thead>
+            {% for item in dbpp %}
+            <tr>
+                <!-- <td rowspan="2" style="background-color:green;">1</td> -->
+                <td>{{ item.counter.name_counter_full }}</td>
+                <td>{{ item.datetime }}</td>
+                <td>{{ item.write_status_byte }} </td>
+                <td>{{ item.period_int }}</td>
+                <td>{{ item.P_plus }}</td>
+                <td>{{ item.P_minus }}</td>
+                <td>{{ item.Q_plus }}</td>
+                <td>{{ item.Q_minus }}</td>
+
+
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="600" height="400">
+    <script type="text/ecmascript">
+        let ns = "http://www.w3.org/2000/svg"
+        let svg = document.createElementNS(ns, 'svg');
+        let rect = document.createElementNS(ns, 'rect');
+        var a = "{{dbpp}}";
+        const dictionary = {
+            P_plus: '1c6aa69fb9d27cb4f29c81611d0b1ff5',
+            PRIVATE_API_KEY: '4fa758e6d388593f8637da4bdd697ef6'
+        };
+        var data = [
+        {% for item in dbpp %}
+            { { item.P_plus } },
+        {% endfor %}
+        ]
+
+        var labels = [
+        {% for item in dbpp %}
+            "{{ forloop.counter }}",
+        {% endfor %}
+        ]
+
+        console.log(data);
+        console.log(labels);
+
+        {% for item in dbpp %}
+        rect.setAttribute('x', {{ forloop.counter }} + 50)
+        rect.setAttribute('y', 60)
+        rect.setAttribute('height', {{ item.P_plus }})
+        rect.setAttribute('width', 30)
+        rect.setAttribute('fill', 'wheat')
+        svg.append(rect);
+        {% endfor %}
+        document.body.append(svg);
+    </script>
+
+</svg>
+
+<!-- End of Content Wrapper -->
+
+{{ block.super }}
+{% endblock %}

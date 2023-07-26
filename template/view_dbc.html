@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Просмотр базы счетчиков :: {{ block.super }}
+
+{% endblock %}
+
+{% block sidebar %}
+{{ block.super }}
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="card-body">
+    <div class="table-responsive">
+        <!-- Table -->
+        <table class="table table-bordered border-primary table-striped table-hover">
+            <thead class="table-dark">
+                <td>Наименование счетчика</td>
+                <td>Схема</td>
+                <td>Группа</td>
+                <td>Сетевой адрес</td>
+                <td>Зав.номер</td>
+                <td>Дата изг.</td>
+                <td>Класс точности по реакт</td>
+                <td>Класс точности по акт</td>
+                <td>Номинальное напряжение</td>
+                <td>Номинальный ток</td>
+                <td>Ku</td>
+                <td>Ki</td>
+                <td>Постоянная счетчика</td>
+                <td>Время счетчика</td>
+            </thead>
+            {% for item in dbc %}
+            <tr>
+                <!-- <td rowspan="2" style="background-color:green;">1</td> -->
+                <td>{{ item.name_counter_full }}</td>
+                <td>{{ item.schem }}</td>
+                <td>{{ item.group.name_group_full }} </td>
+                <td>{{ item.net_adress }}</td>
+                <td>{{ item.manuf_number }}</td>
+                <td>{{ item.manuf_data }}</td>
+                <td>{{ item.klass_react }}</td>
+                <td>{{ item.klass_act }}</td>
+                <td>{{ item.nom_u }}</td>
+                <td>{{ item.nom_i }}</td>
+                <td>{{ item.ku }}</td>
+                <td>{{ item.ki }}</td>
+                <td>{{ item.koefA }}</td>
+                <td>{{ item.datetime }}</td>
+
+
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+</div>
+<!-- End of Content Wrapper -->
+
+{{ block.super }}
+{% endblock %}

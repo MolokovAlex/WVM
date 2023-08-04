@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Редактирование групп :: {{ block.super }}
+
+{% endblock %}
+
+{% block sidebar %}
+{{ block.super }}
+{% endblock %}
+
+
+{% block content %}
+
+
+{% if mode_edit  == "add" %}
+<h1> Добавление новой группы </h1>
+{% elif  mode_edit  == "update" %}
+<h1> Редактирование существующей группы </h1>
+{% endif %}
+<div class="collapse-divider"></div>
+<form action="{% url 'edit_group' %}" method="post">
+    {% csrf_token %}
+    <div class="row g-3">
+        <div class="col">
+            <div class="card-body">
+                <div class="table-responsive">
+
+                    <!-- Table -->
+                    <table class="table table-bordered border-primary">
+                        <thead class="table-dark">
+                            <td> </td>
+                            <td>Наименование группы</td>
+                            <td>Наименование счетчика</td>
+
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td>
+                                    <!-- <a class="icon-link" type="submit" value="Добавить в БД" name="_addCounter">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                                        </svg>
+                                    </a> -->
+                                    {% if mode_edit  == "add" %}
+                                    <button type="submit" class="btn btn-sm btn-outline-secondary" value="Добавить в БД"
+                                        name="_addGroup">Добавить<br />  в БД</button>
+                                    {% elif  mode_edit  == "update" %}
+                                    <button type="submit" class="btn btn-sm btn-outline-secondary"
+                                        value="отредактированть БД" name="_buttonSaveGroup">Обновить<br /> в БД</button>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {{ form.name_counter_full }}
+                                    <div class="invalid-feedback">
+                                        {{ form.name_counter_full.errors }}
+                                    </div>
+                                </td>
+
+
+                                <!-- <td>8</td> -->
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                    <!-- </form> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <!-- Table -->
+            <table class="table table-bordered border-primary table-striped table-hover">
+                <thead class="table-dark">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Наименование группы</td>
+                    <td>Наименование счетчика</td>
+                    <td></td>
+                    <td></td>
+
+                </thead>
+
+                {% for item in dbgc %}
+                    
+                    <tr>
+                        <td><button type="submit" class="btn btn-sm btn-outline-secondary" value="{{ item.id }}"
+                                name="_buttonEditGroup">Edit</button></td>
+                        <td><button type="submit" class="btn btn-sm btn-outline-secondary" value="{{ item.id }}"
+                                name="_buttonDeleteGroup">Delete</button></td>
+                        <td>{{ item.id }}</td>
+                            <td>{{ item.group }} </td>
+                        <td>{{ item.counter }}</td>
+                        <td><button type="submit" class="btn btn-sm btn-outline-secondary" value="{{ item.id }}"
+                            name="_buttonEditCountInGroup">Edit</button></td>
+                        <td><button type="submit" class="btn btn-sm btn-outline-secondary" value="{{ item.id }}"
+                            name="_buttonDeleteCountInGroup">Delete</button></td>
+                    </tr>
+                {% endfor %}
+
+            </table>
+        </div>
+    </div>
+
+</form>
+
+
+
+
+<!-- <button type="submit" class="btn btn-primary">Добавить счетчик</button> -->
+<!-- </form> -->
+
+
+{% endblock %}

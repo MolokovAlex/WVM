@@ -1,18 +1,6 @@
 <!-- filterbar -->
 {% load static %}
-<script type="text/javascript">
-  $(document).ready(function () {
-    $('#daterange').daterangepicker(
-      {
-        minDate: '01/01/2023',
-        maxDate: '12/31/2023',
-        showDropdowns: true,
-        opens: 'left',
-        locale: 'ru'
-      }
-    );
-  });
-</script>
+
 
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
   <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> -->
@@ -36,13 +24,14 @@
         <div class="col">
           <fieldset>
             <div class="control-group">
-              <label class="control-label" for="reservation">Date range:</label>
+              <label class="control-label" for="reservation">Интервал дат:</label>
               <div class="controls">
                 <div class="input-prepend">
-                  <span class="add-on">
+                  <!-- <span class="add-on">
                     <i class="icon-calendar"></i>
-                  </span>
-                  <input type="text" name="reservation" id="daterange" />
+                  </span> -->
+                  <!-- <input type="text" name="reservation" id="daterange" /> -->
+                  {{ daterange }}
 
                 </div>
               </div>

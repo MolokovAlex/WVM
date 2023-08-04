@@ -13,7 +13,12 @@
 
 {% block content %}
 
-<h1> Редактирование счетчика </h1>
+
+{% if mode_edit  == "add" %}
+<h1> Добавление нового счетчика </h1>
+{% elif  mode_edit  == "update" %}
+<h1> Редактирование существующего счетчика </h1>
+{% endif %}
 <div class="collapse-divider"></div>
 <form action="{% url 'edit_counter' %}" method="post">
     {% csrf_token %}
@@ -51,8 +56,13 @@
                                                 d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
                                         </svg>
                                     </a> -->
+                                    {% if mode_edit  == "add" %}
+                                    <button type="submit" class="btn btn-sm btn-outline-secondary" value="Добавить в БД"
+                                        name="_addCounter">Добавить<br />  в БД</button>
+                                    {% elif  mode_edit  == "update" %}
                                     <button type="submit" class="btn btn-sm btn-outline-secondary"
-                                        value="отредактированть БД" name="_buttonSaveCounter">Запись<br /> в БД</button>
+                                        value="отредактированть БД" name="_buttonSaveCounter">Обновить<br /> в БД</button>
+                                    {% endif %}
                                 </td>
                                 <td>
                                     {{ form.name_counter_full }}
@@ -167,7 +177,12 @@
                     <td>{{ item.id }}</td>
                     <td>{{ item.name_counter_full }}</td>
                     <td>{{ item.schem }}</td>
-                    <td>{{ item.group.name_group_full }} </td>
+                    <!-- <td>{{ item.group.name_group_full }} </td> -->
+
+                        <td>  {% for group in item.group.all %}
+                            {{group.name_group_full}} 
+                        {% endfor %}</td>
+    
                     <td>{{ item.net_adress }}</td>
                     <td>{{ item.manuf_number }}</td>
                     <td>{{ item.manuf_data }}</td>

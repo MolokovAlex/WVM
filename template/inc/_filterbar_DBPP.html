@@ -1,6 +1,6 @@
 {% load static %}
 <!-- filterbar -->
-<script type="text/javascript">
+<!-- <script type="text/javascript">
   $(document).ready(function () {
     $('#daterange').daterangepicker(
       {
@@ -12,7 +12,7 @@
       }
     );
   });
-</script>
+</script> -->
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
   <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> -->
   <!-- filterbar Navbar -->
@@ -31,11 +31,11 @@
               <label class="control-label" for="reservation">Date range:</label>
               <div class="controls">
                 <div class="input-prepend">
-                  <span class="add-on">
+                  <!-- <span class="add-on">
                     <i class="icon-calendar"></i>
                   </span>
-                  <input type="text" name="reservation" id="daterange" />
-
+                  <input type="text" name="reservation" id="daterange" /> -->
+                  {{ daterange }}
                 </div>
               </div>
             </div>

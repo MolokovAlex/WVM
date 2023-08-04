@@ -19,14 +19,54 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
 <script>
 window.onload = function () {
-//   var data = [48, -63, 81, 11, 70];
-  var data = [
-    {% for item in data %}
-      {{ item.value }},
+  var data1 = {
+    label: '{{ lengend_graph }}',
+    data: [
+      {% for item in data %}
+      {{ item.value1 }},
     {% endfor %}
-  ]
-//   var labels = ['January', 'February', 'March', 'April', 'May'];
+    ], // Данные представляют собой массив, который должен иметь такое же количество значений, как и количество тегов.
+    backgroundColor: 'rgba(54, 162, 235, 0.2)', // Цвет фона
+    borderColor: 'rgba(54, 162, 235, 1)', // Цвет границы
+    borderWidth: 1,// Толщина границ
+  };
+  var data2 = {
+    label: '{{ lengend_graph }}',
+    data: [
+      {% for item in data %}
+      {{ item.value2 }},
+    {% endfor %}
+    ], // Данные представляют собой массив, который должен иметь такое же количество значений, как и количество тегов.
+    backgroundColor: 'rgba(255, 0, 0, 0.2)',// Цвет фона
+    borderColor: 'rgba(255, 0, 0, 1)',// Цвет границы
+    borderWidth: 1,// Толщина границ
+  };
+  var data3 = {
+    label: '{{ lengend_graph }}',
+    data: [
+      {% for item in data %}
+      {{ item.value3 }},
+    {% endfor %}
+    ], // Данные представляют собой массив, который должен иметь такое же количество значений, как и количество тегов.
+    backgroundColor: 'rgba(0, 0, 255, 0.2)',// Цвет фона
+    borderColor: 'rgba(0, 0, 255, 1)',// Цвет границы
+    borderWidth: 1,// Толщина границ
+  };
+  var data4 = {
+    label: '{{ lengend_graph }}',
+    data: [
+      {% for item in data %}
+      {{ item.value4 }},
+    {% endfor %}
+    ], // Данные представляют собой массив, который должен иметь такое же количество значений, как и количество тегов.
+    backgroundColor: 'rgba(0, 159, 54, 0.2)',// Цвет фона
+    borderColor: 'rgba(0, 159, 54, 1)',// Цвет границы
+    borderWidth: 1,// Толщина границ
+  };
+
+
 var labels = [
+    
     {% for item in data %}
       "{{ item.date }}",
     {% endfor %}
@@ -37,22 +77,29 @@ var labels = [
     data: {
       labels: labels,
       datasets: [
-        {
-          label: 'CurrentFaze1',
-          backgroundColor: 'black',
-          borderColor: 'lightblue',
-          data: data,
-          fill: false
-        }
+
+          data1,
+          data2,
+          data3,
+          data4,
       ]
     },
     options: {
-      responsive: true
+      responsive: true,
+      scales: {
+      x: {
+        title: {
+          color: 'red',
+          display: true,
+          text: 'Month'
+        }
+      }
+    }
     }
   };
 
-  console.log(data);
-  console.log(labels);
+  // console.log(data);
+  // console.log(labels);
 
   var ctx = document.getElementById('chart').getContext('2d');
   window.myLine = new Chart(ctx, config);
@@ -64,24 +111,66 @@ var labels = [
         <!-- Table -->
         <table class="table table-bordered border-primary table-striped table-hover">
             <thead class="table-dark">
-                <td>Наименование счетчика</td>
+                <!-- <td>Наименование счетчика</td> -->
                 <td>Штамп времени</td>
-                <td>CurrentFaze1</td>
-                <td>CurrentFaze2</td>
-                <td>CurrentFaze3</td>
-                <td>CurrentSum</td>
+                <td>Ток<br />фаза1</td>
+                <td>Ток<br />фаза2</td>
+                <td>Ток<br />фаза3</td>
+                <td>Ток<br />сумма</td> 
+                <td>Мощность P<br /> фаза1  </td>
+                <td>Мощность P<br /> фаза2  </td>
+                <td>Мощность P<br /> фаза3  </td>
+                <td>Мощность P<br /> сумма  </td>
+                <td>Мощность Q<br /> фаза1  </td>
+                <td>Мощность Q<br /> фаза2  </td>
+                <td>Мощность Q<br /> фаза3  </td>
+                <td>Мощность Q<br /> сумма  </td>
+                <td>Мощность S<br /> фаза1  </td>
+                <td>Мощность S<br /> фаза2  </td>
+                <td>Мощность S<br /> фаза3  </td>
+                <td>Мощность S<br /> сумма  </td>
+                <td>cos f<br /> фаза1  </td>
+                <td>cos f<br /> фаза2  </td>
+                <td>cos f<br /> фаза3  </td>
+                <td>cos f<br /> сумма  </td>
+                <td>Тариф<br /> 1  </td>
+                <td>Тариф<br /> 2  </td>
+                <td>Тариф<br /> 3  </td>
+                <td>Тариф<br /> сумма  </td>
                 <!-- <td>Q+</td>
                 <td>Q-</td> -->
             </thead>
             {% for item in dbic %}
             <tr>
                 <!-- <td rowspan="2" style="background-color:green;">1</td> -->
-                <td>{{ item.counter.name_counter_full }}</td>
+                <!-- <td>{{ item.counter.name_counter_full }}</td> -->
                 <td>{{ item.datetime }}</td>
                 <td>{{ item.CurrentFaze1 }} </td>
                 <td>{{ item.CurrentFaze2 }}</td>
                 <td>{{ item.CurrentFaze3 }}</td>
                 <td>{{ item.CurrentSum }}</td>
+                <td>{{ item.PowerPFaze1    }}</td>
+                <td>{{ item.PowerPFaze2    }}</td>
+                <td>{{ item.PowerPFaze3    }}</td>
+                <td>{{ item.PowerPFazeSum  }}</td>
+                <td>{{ item.PowerQFaze1    }}</td>
+                <td>{{ item.PowerQFaze1    }}</td>
+                <td>{{ item.PowerQFaze2    }}</td>
+                <td>{{ item.PowerQFaze3    }}</td>
+                <td>{{ item.PowerQFazeSum  }}</td>
+                <td>{{ item.PowerSFaze1    }}</td>
+                <td>{{ item.PowerSFaze2    }}</td>
+                <td>{{ item.PowerSFaze3    }}</td>
+                <td>{{ item.PowerSFazeSum  }}</td>
+                <td>{{ item.KPowerFaze1    }}</td>
+                <td>{{ item.KPowerFaze2    }}</td>
+                <td>{{ item.KPowerFaze3    }}</td>
+                <td>{{ item.KPowerFazeSum  }}</td>
+                <td>{{ item.EnergyTarif1   }}</td>
+                <td>{{ item.EnergyTarif2   }}</td>
+                <td>{{ item.EnergyTarif3   }}</td>
+                <td>{{ item.EnergyTarif4   }}</td>
+                <td>{{ item.EnergyTarifSum }}</td>
                 <!-- <td>{{ item.Q_plus }}</td>
                 <td>{{ item.Q_minus }}</td> -->
 

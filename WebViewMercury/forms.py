@@ -1,24 +1,37 @@
 from django import forms
 
-from .models import DBC, DBG
-from functools import partial
-import datetime
+from .models import DBC, DBG, DBGC
+# from functools import partial
+from datetime import datetime, timedelta
 
-DateInput = partial(forms.DateInput, {'class': 'datepicker'})
 
-class DateRangeForm(forms.Form):
-    # startDate = forms.DateField(widget=DateInput())
-    # endDate = forms.DateField(widget=DateInput())
-    startDate = forms.DateField(label='Дата начала', widget=forms.DateInput(attrs={'type': 'date', 'class':'datepicker', 'value': datetime.datetime.now().strftime("%d-%m-%Y")}))
-    endDate = forms.DateField(label='Дата конца', widget=forms.DateInput(attrs={'type': 'date', 'class':'datepicker', 'value': datetime.datetime.now().strftime("%d-%m-%Y")}))
-    # startDate = forms.DateField()
-    # startDate = forms.DateField(label='Дата начала', widget=forms.DateInput(format='%d-%m-%Y', attrs={'type': 'date'}), required=False)
-    # endDate = forms.DateField(label='Дата конца', widget=forms.DateInput(format='%d-%m-%Y', attrs={'type': 'date'}), required=False)
-    # startDate = forms.DateField(label='Дата начала', widget=forms.DateInput(attrs={'type': 'date', 'value': datetime.datetime.now().strftime("%d-%m-%Y")}), required=False)
-    # endDate = forms.DateField(label='Дата конца', widget=forms.DateInput(attrs={'type': 'date', 'value': datetime.datetime.now().strftime("%d-%m-%Y")}), required=False)
 
-class DatePickerForm( forms.Form):
-    date_range_picker = forms.CharField()
+# DateInput = partial(forms.DateInput, {'class': 'datepicker'})
+
+# class DateRangeForm(forms.Form):
+#     # startDate = forms.DateField(widget=DateInput())
+#     # endDate = forms.DateField(widget=DateInput())
+#     startDate = forms.DateField(label='Дата начала', widget=forms.DateInput(attrs={'type': 'date', 'class':'daterange', 'id': 'daterange','value': datetime.datetime.now().strftime("%d-%m-%Y")}))
+#     endDate = forms.DateField(label='Дата конца', widget=forms.DateInput(attrs={'type': 'date', 'class':'daterange', 'id': 'daterange','value': datetime.datetime.now().strftime("%d-%m-%Y")}))
+#     # startDate = forms.DateField()
+#     # startDate = forms.DateField(label='Дата начала', widget=forms.DateInput(format='%d-%m-%Y', attrs={'type': 'date'}), required=False)
+#     # endDate = forms.DateField(label='Дата конца', widget=forms.DateInput(format='%d-%m-%Y', attrs={'type': 'date'}), required=False)
+#     # startDate = forms.DateField(label='Дата начала', widget=forms.DateInput(attrs={'type': 'date', 'value': datetime.datetime.now().strftime("%d-%m-%Y")}), required=False)
+#     # endDate = forms.DateField(label='Дата конца', widget=forms.DateInput(attrs={'type': 'date', 'value': datetime.datetime.now().strftime("%d-%m-%Y")}), required=False)
+
+# class DatePickerForm( forms.Form):
+#     date_range_picker = forms.CharField()
+
+def current_date():
+    # return datetime.date(year=datetime.today.year, month=datetime.today.month, day=datetime.today.day)
+    return datetime.now()
+
+
+
+class FormDateRange(forms.Form):
+    date_range_start = forms.DateField(label='Дата начала', initial=current_date, widget=forms.DateInput(attrs={'type':'date',}))
+    # date_range_stop = forms.DateField(label='Дата конца', widget=forms.DateInput(attrs=dict(type='date')))
+    date_range_stop = forms.DateField(label='Дата конца', initial=current_date, widget=forms.DateInput(attrs={'type':'date',}))
 
 class CheckFieldsDBIC( forms.Form):
     check_current = forms.BooleanField(required=False, label='ток', widget=forms.CheckboxInput())
@@ -39,6 +52,7 @@ class DBCForm(forms.ModelForm):
         fields = [
     'name_counter_full' ,
     'schem' ,
+    'group',
     'net_adress' ,
     'manuf_number' ,
     'manuf_data' ,
@@ -56,7 +70,8 @@ class DBCForm(forms.ModelForm):
     ]
         widgets = {
             'name_counter_full': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'label': 'Название счетчика'}),
-            'group': forms.Select(attrs={'class': 'form-control', 'empty_label': 'Выберите группу'}),
+            'group': forms.Select(attrs={'class': 'form-control'}),
+            # 'group': forms.CheckboxSelectMultiple(attrs={'class': 'form-control'}),
             'schem': forms.TextInput(attrs={'class': 'form-control'}),
             'net_adress': forms.TextInput(attrs={'class': 'form-control'}),
             'manuf_number'          : forms.NumberInput(attrs={'class': 'form-control'}),
@@ -86,4 +101,16 @@ class DBGForm(forms.ModelForm):
             # 'group': forms.Select(attrs={'class': 'form-control', 'empty_label': 'Выберите группу'}),
             # 'schem': forms.TextInput(attrs={'class': 'form-control'}),
             # 'net_adress': forms.TextInput(attrs={'class': 'form-control'})
+        }
+
+class DBGCForm(forms.ModelForm):
+    class Meta:
+        model = DBGC
+        # fields = '__all__'
+        # fields = ['name_counter_full', 'group', 'schem', 'net_adress']
+        fields = ['group', 'counter']
+        widgets = {
+            'group': forms.TextInput(attrs={'class': 'form-control', 'label': 'Название группы'}),
+            'counter': forms.TextInput(attrs={'class': 'form-control', 'label': 'Название счетчика'})
+
         }

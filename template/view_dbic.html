@@ -88,10 +88,15 @@ var labels = [
       responsive: true,
       scales: {
       x: {
+        type: 'time',
+        time: {
+          // Luxon format string
+          tooltipFormat: 'DD T'
+        },
         title: {
           color: 'red',
           display: true,
-          text: 'Month'
+          text: 'Дата'
         }
       }
     }
@@ -144,7 +149,7 @@ var labels = [
             <tr>
                 <!-- <td rowspan="2" style="background-color:green;">1</td> -->
                 <!-- <td>{{ item.counter.name_counter_full }}</td> -->
-                <td>{{ item.datetime }}</td>
+                <td>{{ item.datetime|date:"d/m/Y G:i" }}</td>
                 <td>{{ item.CurrentFaze1 }} </td>
                 <td>{{ item.CurrentFaze2 }}</td>
                 <td>{{ item.CurrentFaze3 }}</td>

@@ -76,7 +76,10 @@
                                     </div>
 
                                 </td>
-                                <td>{{ form.group }}
+                                <td> {{ form.group.all }}
+                                    <!-- {% for group in form.group.all %}
+                                    {{group.name_group_full}} 
+                                {% endfor %} -->
                                     <div class="invalid-feedback">
                                         {{ form.group.errors }}
                                     </div>
@@ -185,7 +188,7 @@
     
                     <td>{{ item.net_adress }}</td>
                     <td>{{ item.manuf_number }}</td>
-                    <td>{{ item.manuf_data }}</td>
+                    <td>{{ item.manuf_data|date:"d/m/Y" }}</td>
                     <td>{{ item.klass_react }}</td>
                     <td>{{ item.klass_act }}</td>
                     <td>{{ item.nom_u }}</td>
@@ -193,7 +196,7 @@
                     <td>{{ item.ku }}</td>
                     <td>{{ item.ki }}</td>
                     <td>{{ item.koefA }}</td>
-                    <td>{{ item.datetime }}</td>
+                    <td>{{ item.datetime|date:"d/m/Y G:i:s" }}</td>
 
 
                 </tr>

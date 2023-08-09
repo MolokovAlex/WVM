@@ -14,9 +14,9 @@
 {% block content %}
 
 
-{% if mode_edit  == "add" %}
+{% if mode_edit == "add" %}
 <h1> Добавление новой группы </h1>
-{% elif  mode_edit  == "update" %}
+{% elif mode_edit == "update" %}
 <h1> Редактирование существующей группы </h1>
 {% endif %}
 <div class="collapse-divider"></div>
@@ -46,18 +46,24 @@
                                                 d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
                                         </svg>
                                     </a> -->
-                                    {% if mode_edit  == "add" %}
+                                    {% if mode_edit == "add" %}
                                     <button type="submit" class="btn btn-sm btn-outline-secondary" value="Добавить в БД"
-                                        name="_addGroup">Добавить<br />  в БД</button>
-                                    {% elif  mode_edit  == "update" %}
+                                        name="_addGroup">Добавить<br /> в БД</button>
+                                    {% elif mode_edit == "update" %}
                                     <button type="submit" class="btn btn-sm btn-outline-secondary"
-                                        value="отредактированть БД" name="_buttonSaveGroup">Обновить<br /> в БД</button>
+                                        value="отредактированть БД" name="_buttonUpdateDataInDBGC">Обновить<br /> в БД</button>
                                     {% endif %}
                                 </td>
                                 <td>
-                                    {{ form.name_counter_full }}
+                                    {{ form.group }}
                                     <div class="invalid-feedback">
-                                        {{ form.name_counter_full.errors }}
+                                        {{ form.group.errors }}
+                                    </div>
+                                </td>
+                                <td>
+                                    {{ form.counter }}
+                                    <div class="invalid-feedback">
+                                        {{ form.counter.errors }}
                                     </div>
                                 </td>
 
@@ -80,7 +86,7 @@
             <!-- Table -->
             <table class="table table-bordered border-primary table-striped table-hover">
                 <thead class="table-dark">
-                    <td></td>
+                    <!-- <td></td> -->
                     <td></td>
                     <td></td>
                     <td>Наименование группы</td>
@@ -90,21 +96,33 @@
 
                 </thead>
 
-                {% for item in dbg %}
-                    
+
+                {% for item in list_dataDBGS %}
+                <tr>
+                    <!-- <td><button type="submit" class="btn btn-sm btn-outline-secondary" value="{{ item.id }}"
+                            name="_buttonEditGroup">Edit</button></td> -->
+                    <td><button type="submit" class="btn btn-sm btn-outline-secondary" value="{{ item.id }}"
+                            name="_buttonDeleteGroup">Delete</button></td>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.gr }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                
+                    {% for it in item.coun %}
                     <tr>
-                        <td><button type="submit" class="btn btn-sm btn-outline-secondary" value="{{ item.id }}"
-                                name="_buttonEditGroup">Edit</button></td>
-                        <td><button type="submit" class="btn btn-sm btn-outline-secondary" value="{{ item.id }}"
-                                name="_buttonDeleteGroup">Delete</button></td>
-                        <td>{{ item.id }}</td>
-                            <td>{{ item.name_group_full }} </td>
-                        <td>{{ item.counter_set.all }}</td>
-                        <td><button type="submit" class="btn btn-sm btn-outline-secondary" value="{{ item.id }}"
-                            name="_buttonEditCountInGroup">Edit</button></td>
-                        <td><button type="submit" class="btn btn-sm btn-outline-secondary" value="{{ item.id }}"
-                            name="_buttonDeleteCountInGroup">Delete</button></td>
+                        <!-- <td></td> -->
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    <td>{{ it }}</td>
+                    <td><button type="submit" class="btn btn-sm btn-outline-secondary" value="{{ item.id }}:{{it}}"
+                        name="_buttonEditCountInGroup">Edit</button></td>
+                    <td><button type="submit" class="btn btn-sm btn-outline-secondary" value="{{ item.id }}:{{it}}"
+                        name="_buttonDeleteCountInGroup">Delete</button></td>
                     </tr>
+                    {% endfor%}                
                 {% endfor %}
 
             </table>

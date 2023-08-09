@@ -70,10 +70,10 @@ class DBCForm(forms.ModelForm):
     ]
         widgets = {
             'name_counter_full': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'label': 'Название счетчика'}),
-            'group': forms.Select(attrs={'class': 'form-control'}),
-            # 'group': forms.CheckboxSelectMultiple(attrs={'class': 'form-control'}),
-            'schem': forms.TextInput(attrs={'class': 'form-control'}),
-            'net_adress': forms.TextInput(attrs={'class': 'form-control'}),
+            # 'group': forms.Select(attrs={'class': 'form-control', 'label': 'Название группы'}),
+            'group': forms.CheckboxSelectMultiple(attrs={'class': 'form-control', 'label': 'Название группы'}),
+            'schem': forms.TextInput(attrs={'class': 'form-control', 'label': 'Название схемы'}),
+            'net_adress': forms.TextInput(attrs={'class': 'form-control', 'label': 'Сетевой адрес'}),
             'manuf_number'          : forms.NumberInput(attrs={'class': 'form-control'}),
             'manuf_data'            : forms.DateTimeInput(format=('%Y-%m-%dT%H:%M'), attrs={'type': 'datetime-local'}),
             'klass_react'           : forms.NumberInput(attrs={'class': 'form-control'}),
@@ -110,7 +110,8 @@ class DBGCForm(forms.ModelForm):
         # fields = ['name_counter_full', 'group', 'schem', 'net_adress']
         fields = ['group', 'counter']
         widgets = {
-            'group': forms.TextInput(attrs={'class': 'form-control', 'label': 'Название группы'}),
-            'counter': forms.TextInput(attrs={'class': 'form-control', 'label': 'Название счетчика'})
-
+            # 'group': forms.TextInput(attrs={'class': 'form-control', 'label': 'Название группы'}),
+            'group': forms.Select(attrs={'class': 'form-control', 'label': 'Название группы'}),
+            # 'counter': forms.TextInput(attrs={'class': 'form-control', 'label': 'Название счетчика'})
+            'counter': forms.Select(attrs={'class': 'form-control', 'label': 'Название счетчика'})
         }

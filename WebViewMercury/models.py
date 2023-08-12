@@ -20,22 +20,16 @@ class DBG(models.Model):
 class DBC(models.Model):
     # id = models.IntegerField()
     name_counter_full = models.CharField(max_length=50, verbose_name='Наименование счетчика', blank=False, default="")  # обязательное поле для формы (blank=False) 
-    group = models.ManyToManyField(DBG, through="DBGC", verbose_name='Наименование группы')
+    groupes = models.ManyToManyField(DBG, through="DBGC", verbose_name='Наименование группы')
     schem = models.CharField(max_length=20, default="", blank=True)                                                     # НЕобязательное поле для формы
-    # net_adress = models.CharField(max_length=20)
     net_adress = models.IntegerField(verbose_name='Сетевой адрес', blank=False, default=0) # обязательное поле для формы (blank=False)
-    # manuf_number = models.CharField(max_length=20)
     manuf_number = models.IntegerField(verbose_name='Заводской номер', default=0, blank=True)
     manuf_data = models.DateTimeField(verbose_name='Дата изготовление', default='2000-01-01T00:00', blank=True)
-    version_data = models.BigIntegerField(blank=True, default=0)             # вариант исполнения счетчика (6+2 = 8 байт в виде одного числа) (стр.77)
-    # klass_react = models.CharField(max_length=20)   
+    version_data = models.BigIntegerField(blank=True, default=0)             # вариант исполнения счетчика (6+2 = 8 байт в виде одного числа) (стр.77)  
     klass_react = models.FloatField(blank=True, default=0)                   # класс точности по реактивной энергии (стр.75)
-    # klass_act = models.CharField(max_length=20)
     klass_act = models.FloatField(blank=True, default=0)                     # класс точности по активной энергии (стр.75)
     nom_u = models.IntegerField(blank=True, default=0)
     nom_i = models.IntegerField(blank=True, default=0)
-    # ku = models.CharField(max_length=20)   
-    # ki = models.CharField(max_length=20)
     ku = models.IntegerField(blank=True, default=0)                  # коэф трансформации 
     ki = models.IntegerField(blank=True, default=0)
     koefA = models.IntegerField(blank=True, default=0)               #

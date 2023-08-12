@@ -50,28 +50,29 @@ class DBCForm(forms.ModelForm):
         # fields = '__all__'
         # fields = ['name_counter_full', 'group', 'schem', 'net_adress']
         fields = [
-    'name_counter_full' ,
-    'schem' ,
-    'group',
-    'net_adress' ,
-    'manuf_number' ,
-    'manuf_data' ,
-    'klass_react' ,
-    'klass_act' ,
-    'nom_u' ,
-    'nom_i' ,
-    'ku' ,
-    'ki' ,
-    'koefA' ,
-    'datetime' ,
-    'adress_last_record' ,
-    'datetime_adr0' ,
-    'version_data' 
-    ]
+        'id',
+        'name_counter_full' ,
+        'schem' ,
+        'groupes',
+        'net_adress' ,
+        'manuf_number' ,
+        'manuf_data' ,
+        'klass_react' ,
+        'klass_act' ,
+        'nom_u' ,
+        'nom_i' ,
+        'ku' ,
+        'ki' ,
+        'koefA' ,
+        'datetime' ,
+        'adress_last_record' ,
+        'datetime_adr0' ,
+        'version_data' 
+        ]
         widgets = {
             'name_counter_full': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'label': 'Название счетчика'}),
-            # 'group': forms.Select(attrs={'class': 'form-control', 'label': 'Название группы'}),
-            'group': forms.CheckboxSelectMultiple(attrs={'class': 'form-control', 'label': 'Название группы'}),
+            'groupes': forms.Select(attrs={'class': 'form-control', 'label': 'Название группы'}),
+            # 'group': forms.CheckboxSelectMultiple(attrs={'class': 'form-control', 'label': 'Название группы'}),
             'schem': forms.TextInput(attrs={'class': 'form-control', 'label': 'Название схемы'}),
             'net_adress': forms.TextInput(attrs={'class': 'form-control', 'label': 'Сетевой адрес'}),
             'manuf_number'          : forms.NumberInput(attrs={'class': 'form-control'}),
@@ -85,8 +86,8 @@ class DBCForm(forms.ModelForm):
             'koefA'                 : forms.NumberInput(attrs={'class': 'form-control'}),
             'datetime'              : forms.DateTimeInput(format=('%Y-%m-%dT%H:%M'), attrs={'type': 'datetime-local'}),
             'adress_last_record'    : forms.NumberInput(attrs={'class': 'form-control'}),
-            'datetime_adr0'         : forms.DateTimeInput(format=('%Y-%m-%dT%H:%M'), attrs={'type': 'datetime-local'}),
-            'version_data'          : forms.NumberInput(attrs={'class': 'form-control'})
+            'datetime_adr0'         : forms.DateTimeInput(format=('%Y-%m-%dT%H:%M'), attrs={'type': 'datetime-local'})
+            # 'version_data'          : forms.NumberInput(attrs={'class': 'form-control'})
 
         }
 

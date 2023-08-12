@@ -61,7 +61,7 @@
                                         name="_addCounter">Добавить<br />  в БД</button>
                                     {% elif  mode_edit  == "update" %}
                                     <button type="submit" class="btn btn-sm btn-outline-secondary"
-                                        value="отредактированть БД" name="_buttonSaveCounter">Обновить<br /> в БД</button>
+                                        value="{{ id }}" name="_buttonSaveCounter">Обновить<br /> в БД</button>
                                     {% endif %}
                                 </td>
                                 <td>
@@ -76,10 +76,11 @@
                                     </div>
 
                                 </td>
-                                <td> {{ form.group.all }}
-                                    <!-- {% for group in form.group.all %}
-                                    {{group.name_group_full}} 
-                                {% endfor %} -->
+                                <td> 
+
+                                        {% for gr in dbg%}
+                                        {{ gr.name_group_full}}
+                                        {% endfor %}
                                     <div class="invalid-feedback">
                                         {{ form.group.errors }}
                                     </div>
@@ -180,11 +181,10 @@
                     <td>{{ item.id }}</td>
                     <td>{{ item.name_counter_full }}</td>
                     <td>{{ item.schem }}</td>
-                    <!-- <td>{{ item.group.name_group_full }} </td> -->
 
-                        <td>  {% for group in item.group.all %}
-                            {{group.name_group_full}} 
-                        {% endfor %}</td>
+                        <td>    {% for group in item.groupes.all %}
+                                    - {{group.name_group_full}} 
+                                {% endfor %}</td>
     
                     <td>{{ item.net_adress }}</td>
                     <td>{{ item.manuf_number }}</td>
